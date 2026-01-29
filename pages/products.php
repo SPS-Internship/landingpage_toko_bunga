@@ -28,6 +28,9 @@ if ($kategori) {
 }
 ?>
 
+<!-- Font Awesome (kalau header.php kamu belum ada, ini wajib) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
 <style>
 .product-grid {
   display: grid;
@@ -72,29 +75,60 @@ if ($kategori) {
   font-weight: 700;
   color: #e91e63;
 }
+
+/* ICON JUDUL */
+.page-title {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-title i {
+  color: #e91e63;
+  font-size: 38px;
+}
 </style>
 
 <section style="padding:90px 40px; background:#f7f7f7;">
-  <h1 style="text-align:center; font-size:42px; margin-bottom:60px;">
-    Daftar Produk 🌸
+  
+  <!-- JUDUL PAKAI FONT AWESOME -->
+  <h1 class="page-title">
+    <i class="fa-solid fa-spa" aria-hidden="true"></i>
+    Daftar Produk
   </h1>
 
   <div class="product-grid">
     <?php if (empty($products)): ?>
-      <p style="text-align:center; color:#777; grid-column:1/-1;">Produk tidak ditemukan</p>
+      <p style="text-align:center; color:#777; grid-column:1/-1;">
+        <i class="fa-solid fa-circle-info" style="color:#e91e63; margin-right:6px;"></i>
+        Produk tidak ditemukan
+      </p>
     <?php else: ?>
       <?php foreach ($products as $product): ?>
         <div class="product-card">
           <img src="../image/products/<?= $product['image'] ?>" alt="<?= htmlspecialchars($product['name']) ?>">
           <div class="product-body">
             <h3><?= htmlspecialchars($product['name']) ?></h3>
-            <div class="price">Rp <?= number_format($product['price'], 0, ',', '.') ?></div>
+
+            <div class="price">
+              <i class="fa-solid fa-tag" style="margin-right:6px;"></i>
+              Rp <?= number_format($product['price'], 0, ',', '.') ?>
+            </div>
+
             <form method="POST" action="checkout.php" style="margin-top:10px;">
               <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']) ?>">
               <input type="hidden" name="product_img" value="../image/products/<?= $product['image'] ?>">
               <input type="hidden" name="price" value="<?= $product['price'] ?>">
               <input type="hidden" name="quantity" value="1">
-              <button type="submit" style="background:#e91e63; color:white; padding:8px 16px; border:none; border-radius:20px; cursor:pointer;">Pesan Sekarang</button>
+
+              <button type="submit" style="background:#e91e63; color:white; padding:8px 16px; border:none; border-radius:20px; cursor:pointer;">
+                <i class="fa-solid fa-cart-shopping" style="margin-right:6px;"></i>
+                Pesan Sekarang
+              </button>
             </form>
           </div>
         </div>
